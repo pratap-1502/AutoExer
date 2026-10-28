@@ -3,6 +3,9 @@ name: Playwright checks
 on:
   push:
   pull_request:
+  schedule:
+    # 23:30 UTC is 05:00 IST (UTC+05:30) the following day.
+    - cron: '30 23 * * *'
   workflow_dispatch:
     inputs:
       test_tag:
@@ -24,7 +27,7 @@ permissions:
 
 jobs:
   playwright:
-    name: Playwright (${{ github.event.inputs.test_tag || 'smoke' }})
+    name: Playwright (${{ github.event_name == 'schedule' && 'all' || github.event.inputs.test_tag || 'smoke' }})
     timeout-minutes: 30
     runs-on: ubuntu-latest
     env:
@@ -32,7 +35,7 @@ jobs:
       BASE_URL: https://automationexercise.com
       HEADLESS: true
       WORKERS: 2
-      TEST_SELECTION: ${{ github.event.inputs.test_tag || 'smoke' }}
+      TEST_SELECTION: ${{ github.event_name == 'schedule' && 'all' || github.event.inputs.test_tag || 'smoke' }}
 
     steps:
       - name: Check out repository
@@ -79,7 +82,7 @@ jobs:
               npx playwright test tests/api --project=api --workers=2
               ;;
             all)
-              npx playwright test --project=chromium --workers=2
+              npx playwright test --project=chromium --project=api --workers=2
               ;;
             *)
               echo "Unsupported test selection: $TEST_SELECTION"
