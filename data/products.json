@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Blue Top",
+    "category": "Women > Tops",
+    "price": "Rs. 500",
+    "quantity": 1,
+    "availability": "In Stock",
+    "condition": "New",
+    "searchKeyword": "Blue Top"
+  },
+  {
+    "id": 2,
+    "name": "Men Tshirt",
+    "category": "Men > Tshirts",
+    "price": "Rs. 400",
+    "quantity": 1,
+    "availability": "In Stock",
+    "condition": "New",
+    "searchKeyword": "Tshirt"
+  },
+  {
+    "id": 3,
+    "name": "Sleeveless Dress",
+    "category": "Women > Dress",
+    "price": "Rs. 1000",
+    "quantity": 4,
+    "availability": "In Stock",
+    "condition": "New",
+    "searchKeyword": "Dress"
+  }
+]

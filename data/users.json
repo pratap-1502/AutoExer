@@ -1,0 +1,46 @@
+[
+  {
+    "id": "standard-us-user",
+    "name": "Avery Morgan",
+    "emailPrefix": "ae.avery",
+    "password": "PracticeOnly!42",
+    "title": "Mrs",
+    "birthDate": "14",
+    "birthMonth": "6",
+    "birthYear": "1992",
+    "address": {
+      "firstName": "Avery",
+      "lastName": "Morgan",
+      "company": "Northstar QA",
+      "address1": "125 Cypress Avenue",
+      "address2": "Suite 4B",
+      "country": "United States",
+      "state": "California",
+      "city": "San Diego",
+      "zipcode": "92101",
+      "mobileNumber": "2025550147"
+    }
+  },
+  {
+    "id": "hyphenated-canada-user",
+    "name": "Jean-Luc Martin",
+    "emailPrefix": "ae.jeanluc",
+    "password": "PracticeOnly!73",
+    "title": "Mr",
+    "birthDate": "22",
+    "birthMonth": "11",
+    "birthYear": "1988",
+    "address": {
+      "firstName": "Jean-Luc",
+      "lastName": "Martin",
+      "company": "Maple Test Labs",
+      "address1": "88 Fictional Street",
+      "address2": "Unit 12",
+      "country": "Canada",
+      "state": "Ontario",
+      "city": "Toronto",
+      "zipcode": "M5V2T6",
+      "mobileNumber": "4165550198"
+    }
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "exact-blue-top",
+    "keyword": "Blue Top",
+    "expectedProducts": ["Blue Top"],
+    "expectResults": true
+  },
+  {
+    "id": "partial-top",
+    "keyword": "top",
+    "expectedProducts": ["Blue Top", "Winter Top"],
+    "expectResults": true
+  },
+  {
+    "id": "case-variation-tshirt",
+    "keyword": "TSHIRT",
+    "expectedProducts": ["Men Tshirt"],
+    "expectResults": true
+  },
+  {
+    "id": "no-match",
+    "keyword": "nonexistent-product-xyz",
+    "expectedProducts": [],
+    "expectResults": false
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "unregistered-email",
+    "email": "nobody.registered@example.com",
+    "password": "WrongPassword!1",
+    "expectedError": "Your email or password is incorrect!"
+  },
+  {
+    "id": "incorrect-password",
+    "email": "known-format@example.com",
+    "password": "DefinitelyWrong!9",
+    "expectedError": "Your email or password is incorrect!"
+  },
+  {
+    "id": "invalid-email-format",
+    "email": "not-an-email",
+    "password": "WrongPassword!1",
+    "expectedError": "Please include an '@' in the email address.",
+    "browserValidation": true
+  },
+  {
+    "id": "empty-credentials",
+    "email": "",
+    "password": "",
+    "expectedError": "Please fill out this field.",
+    "browserValidation": true
+  }
+]
