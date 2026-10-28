@@ -1,0 +1,23 @@
+{
+  "address": {
+    "firstName": "Avery",
+    "lastName": "Morgan",
+    "company": "Northstar QA",
+    "address1": "125 Cypress Avenue",
+    "address2": "Suite 4B",
+    "country": "United States",
+    "state": "California",
+    "city": "San Diego",
+    "zipcode": "92101",
+    "mobileNumber": "2025550147"
+  },
+  "orderComment": "Automation practice order. Please do not fulfil.",
+  "payment": {
+    "nameOnCard": "Avery Morgan",
+    "cardNumber": "4111111111111111",
+    "cvc": "123",
+    "expiryMonth": "12",
+    "expiryYear": "2030"
+  },
+  "expectedConfirmation": "Congratulations! Your order has been confirmed!"
+}
