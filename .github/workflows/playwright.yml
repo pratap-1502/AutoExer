@@ -1,11 +1,30 @@
 name: Playwright checks
+
 on:
   push:
-    branches: [main]
   pull_request:
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      test_tag:
+        description: Test tag or suite to run
+        required: true
+        default: smoke
+        type: choice
+        options:
+          - smoke
+          - regression
+          - critical
+          - negative
+          - e2e
+          - api
+          - all
+
+permissions:
+  contents: read
+
 jobs:
-  smoke:
+  playwright:
+    name: Playwright (${{ github.event.inputs.test_tag || 'smoke' }})
     timeout-minutes: 30
     runs-on: ubuntu-latest
     env:
@@ -13,33 +32,75 @@ jobs:
       BASE_URL: https://automationexercise.com
       HEADLESS: true
       WORKERS: 2
+      TEST_SELECTION: ${{ github.event.inputs.test_tag || 'smoke' }}
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
+
       - name: Install dependencies
         run: npm ci
+
       - name: Install Chromium and OS dependencies
         run: npx playwright install --with-deps chromium
+
       - name: Type check
         run: npm run typecheck
+
       - name: Lint
         run: npm run lint
-      - name: Run Chromium smoke tests
-        run: npm run test:smoke -- --project=chromium --workers=2
+
+      - name: Run selected Playwright tests
+        shell: bash
+        run: |
+          case "$TEST_SELECTION" in
+            smoke)
+              npx playwright test --project=chromium --grep "@smoke" --workers=2
+              ;;
+            regression)
+              npx playwright test --project=chromium --grep "@regression" --workers=2
+              ;;
+            critical)
+              npx playwright test --project=chromium --grep "@critical" --workers=2
+              ;;
+            negative)
+              npx playwright test --project=chromium --grep "@negative" --workers=2
+              ;;
+            e2e)
+              npx playwright test --project=chromium --grep "@e2e" --workers=2
+              ;;
+            api)
+              npx playwright test tests/api --project=api --workers=2
+              ;;
+            all)
+              npx playwright test --project=chromium --workers=2
+              ;;
+            *)
+              echo "Unsupported test selection: $TEST_SELECTION"
+              exit 1
+              ;;
+          esac
+
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report
+          name: playwright-report-${{ github.run_id }}-${{ github.run_attempt }}
           path: playwright-report/
+          if-no-files-found: ignore
           retention-days: 14
-      - name: Upload test artifacts
+
+      - name: Upload failure artifacts
         uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
-          name: test-results
+          name: test-results-${{ github.run_id }}-${{ github.run_attempt }}
           path: test-results/
+          if-no-files-found: ignore
           retention-days: 14
